@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --font-display: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: #05030a;
+    color: #f1f5f9;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  table, .font-data {
+    font-family: var(--font-body);
+  }
+}
+
+/* Custom Film Grain Texture */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
+}
+
+/* Blue, Purple, and Black Ambient Mesh Gradients */
+.bg-aurora-mesh {
+  background: 
+    radial-gradient(circle at 75% 26%, rgba(124, 58, 237, 0.38) 0%, rgba(79, 70, 229, 0.22) 32%, transparent 68%),
+    radial-gradient(circle at 18% 22%, rgba(37, 99, 235, 0.35) 0%, rgba(29, 78, 216, 0.16) 38%, transparent 60%),
+    radial-gradient(circle at 50% 85%, rgba(139, 92, 246, 0.25) 0%, rgba(37, 99, 235, 0.16) 35%, transparent 58%),
+    #05030a;
+}
+
+/* Glassmorphism Styles */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.glass-card {
+  background: rgba(13, 9, 24, 0.7);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 16px 40px -15px rgba(124, 58, 237, 0.25);
+}
+
+/* Animations */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+
+@keyframes scroll-dot {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(14px);
+    opacity: 0.2;
+  }
+}
+
+.animate-scroll-dot {
+  animation: scroll-dot 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #05030a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.6);
+}
+
+/* Worm-Like Moving Gradient Animations */
+@keyframes worm-slither-1 {
+  0% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1, 0.9);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  20% {
+    transform: translate3d(140px, -50px, 0) rotate(24deg) scale(1.18, 0.82);
+    border-radius: 65% 35% 45% 55% / 55% 40% 60% 45%;
+  }
+  40% {
+    transform: translate3d(210px, 45px, 0) rotate(48deg) scale(0.92, 1.15);
+    border-radius: 35% 65% 60% 40% / 60% 55% 35% 65%;
+  }
+  60% {
+    transform: translate3d(90px, 120px, 0) rotate(18deg) scale(1.12, 0.88);
+    border-radius: 50% 50% 30% 70% / 45% 60% 40% 55%;
+  }
+  80% {
+    transform: translate3d(-80px, 45px, 0) rotate(-22deg) scale(0.88, 1.12);
+    border-radius: 70% 30% 50% 50% / 35% 45% 65% 55%;
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1, 0.9);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+}
+
+@keyframes worm-slither-2 {
+  0% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(0.95, 1.1);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  25% {
+    transform: translate3d(-140px, 70px, 0) rotate(-35deg) scale(1.15, 0.85);
+    border-radius: 45% 55% 60% 40% / 40% 65% 35% 60%;
+  }
+  50% {
+    transform: translate3d(-60px, -90px, 0) rotate(22deg) scale(0.88, 1.18);
+    border-radius: 70% 30% 40% 60% / 55% 35% 65% 45%;
+  }
+  75% {
+    transform: translate3d(90px, -40px, 0) rotate(-16deg) scale(1.16, 0.84);
+    border-radius: 35% 65% 55% 45% / 60% 50% 40% 60%;
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(0.95, 1.1);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+@keyframes worm-slither-3 {
+  0% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1.05, 0.88);
+    border-radius: 50% 50% 65% 35% / 35% 60% 40% 65%;
+  }
+  30% {
+    transform: translate3d(160px, 90px, 0) rotate(-42deg) scale(0.85, 1.22);
+    border-radius: 65% 35% 40% 60% / 55% 45% 65% 35%;
+  }
+  65% {
+    transform: translate3d(-120px, -70px, 0) rotate(38deg) scale(1.22, 0.82);
+    border-radius: 35% 65% 55% 45% / 45% 65% 35% 55%;
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1.05, 0.88);
+    border-radius: 50% 50% 65% 35% / 35% 60% 40% 65%;
+  }
+}
+
+@keyframes worm-undulate-segments {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1) blur(60px);
+  }
+  50% {
+    transform: scale(1.1, 0.92) rotate(10deg);
+    filter: brightness(1.25) blur(75px);
+  }
+}
+
+.animate-worm-1 {
+  animation: worm-slither-1 20s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, border-radius;
+}
+
+.animate-worm-2 {
+  animation: worm-slither-2 26s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, border-radius;
+}
+
+.animate-worm-3 {
+  animation: worm-slither-3 30s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, border-radius;
+}
+
+.animate-worm-pulse {
+  animation: worm-undulate-segments 9s ease-in-out infinite alternate;
+}
