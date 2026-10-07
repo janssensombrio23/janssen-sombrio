@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import navFrame from "../assets/home hero images/Nav Frame.svg";
+import { motion } from "framer-motion";
+import navFrame from "../assets/home hero assets/Nav Frame.svg";
 
 export default function Navbar() {
   const [active, setActive] = useState("Home");
@@ -12,9 +13,17 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 flex justify-center transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${showNav ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-        }`}
+    <motion.header
+      initial={{ y: "-100%", opacity: 0 }}
+      animate={{
+        y: showNav ? 0 : "-100%",
+        opacity: showNav ? 1 : 0,
+      }}
+      transition={{
+        duration: 0.9,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="fixed top-0 left-0 w-full z-50 flex justify-center"
     >
       {/* SVG Nav Frame Container */}
       <div
@@ -22,27 +31,38 @@ export default function Navbar() {
         style={{ backgroundImage: `url("${navFrame}")` }}
       >
         {/* Navigation Links */}
-        <nav className="flex gap-16 items-center z-10 -mb-4">
+        <nav className="flex gap-8 items-center z-10 -mb-4">
           {links.map((label) => {
             const isActive = label === active;
             return (
-              <a
+              <motion.a
                 key={label}
                 href={`#${label.toLowerCase()}`}
                 onClick={() => setActive(label)}
-                className={`relative py-1 text-black no-underline font-['Clarity_City',_'Inter',_sans-serif] text-[17px] transition-all duration-300 hover:text-gray-600 ${isActive ? "font-bold" : "font-medium"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`relative py-1 text-black no-underline font-['Clarity_City',_'Inter',_sans-serif] text-[17px] transition-colors duration-200 hover:text-gray-600 ${isActive ? "font-bold" : "font-medium"
                   }`}
               >
                 {label}
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-[2.5px] bg-black rounded-full transition-all duration-300 ease-out ${isActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
-                    }`}
-                />
-              </a>
+
+                {/* Animated Active Indicator Pill */}
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavIndicator"
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                    className="absolute bottom-0 left-0 w-full h-[2.5px] bg-black rounded-full"
+                  />
+                )}
+              </motion.a>
             );
           })}
         </nav>
       </div>
-    </header>
+    </motion.header>
   );
 }
