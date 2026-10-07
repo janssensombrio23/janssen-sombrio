@@ -15,26 +15,20 @@ export default function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#05030a] text-[#f1f5f9] relative selection:bg-[#7c3aed] selection:text-white overflow-hidden">
+    <div className="min-h-screen bg-[#05030a] text-[#f1f5f9] relative selection:bg-[#7c3aed] selection:text-white">
       
       {/* Moving Worm-Like Gradients (Blue, Purple & Black) */}
       <WormGradients />
 
       {/* Analog Film Grain Texture Overlay */}
       <div 
-        className="pointer-events-none fixed inset-0 z-30 opacity-35 bg-grain" 
+        className="pointer-events-none fixed inset-0 z-5 opacity-35 bg-grain" 
         aria-hidden="true" 
       />
 
-      {/* Floating Capsule Header — hidden on Case Study pages */}
-      {!selectedProject && (
-        <div className="relative z-40">
-          <Navbar 
-            name={personalInfo.name} 
-            onOpenResume={() => setIsResumeOpen(true)} 
-          />
-        </div>
-      )}
+
+      {/* Fixed Centered Pill Navbar */}
+      <Navbar />
 
       {/* Conditional Rendering: Full-Page Case Study or Main Portfolio Landing */}
       {selectedProject ? (
@@ -51,8 +45,8 @@ export default function App() {
         </main>
       ) : (
         <main className="relative z-10">
-          {/* Hero Section */}
-          <Hero personalInfo={personalInfo} />
+          {/* Hero Section — includes embedded navbar */}
+          <Hero personalInfo={personalInfo} onOpenResume={() => setIsResumeOpen(true)} />
 
           {/* Selected Work & Case Studies */}
           <ProjectsSection 
