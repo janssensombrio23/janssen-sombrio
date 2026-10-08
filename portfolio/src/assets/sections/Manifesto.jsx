@@ -28,7 +28,7 @@ export default function Manifesto() {
   };
 
   return (
-    <section className="sticky top-0 h-screen min-h-[850px] w-full bg-black flex flex-col justify-center items-center py-[48px] px-[32px] overflow-hidden isolate z-10">
+    <section id="about" className="sticky top-0 h-screen min-h-[850px] w-full bg-black flex flex-col justify-center items-center py-[48px] px-[32px] overflow-hidden isolate z-10">
 
       {/* Top Gradient Blend overlay */}
       <div className="absolute top-0 left-0 w-full h-[180px] bg-gradient-to-b from-[#05030a] via-black/80 to-transparent z-10 pointer-events-none" />

@@ -23,6 +23,9 @@ export default function App() {
 
         {/* Works Section */}
         <Works />
+
+        {/* Contact Anchor */}
+        <div id="contact" />
       </main>
 
     </div>

@@ -6,7 +6,6 @@ import bg2 from "../home hero assets/BG 2.png";
 import bg3 from "../home hero assets/BG 3.png";
 import portrait from "../home hero assets/Janssen PNG.png";
 import nameText from "../home hero assets/Janssen Sombrio Text.png";
-import jsLogo from "../home hero assets/JS LOGO.png";
 
 export default function Hero() {
   const [stage, setStage] = useState(0);
@@ -79,115 +78,63 @@ export default function Hero() {
     targetOffset.current = { x: 0, y: 0 };
   };
 
-  // Shared Spring Transition Config
-  const springConfig = { type: "spring", stiffness: 80, damping: 18 };
+  const chipLinks = [
+    { label: "Figma", href: "#" },
+    { label: "Github", href: "#" },
+    { label: "Download CV ↓", href: "#" },
+  ];
 
   return (
     <section
+      id="home"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative isolate w-full h-screen min-h-[800px] overflow-hidden flex flex-col items-center pt-[38px] pb-[40px] px-[48px] bg-[#05030a] font-['Clarity_City','Inter',sans-serif]"
+      className="relative isolate w-full h-screen min-h-[800px] overflow-hidden flex flex-col justify-between pt-24 pb-12 px-8 md:px-16 bg-[#05030a] font-['Clarity_City','Inter',sans-serif] select-none"
     >
-      {/* ========================================================
-          BACKGROUND CROSSFADE
-      ======================================================== */}
-      <motion.div
-        initial={{ opacity: 1 }}
-        className="absolute inset-0 bg-cover bg-center blur-[6px] brightness-75 scale-105 -z-30"
-        style={{ backgroundImage: `url("${bg1}")` }}
-      />
-
-      <motion.div
-        animate={{ opacity: stage >= 1 ? 1 : 0 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-        className="absolute inset-0 bg-cover bg-center blur-[6px] brightness-75 scale-105 -z-30"
-        style={{ backgroundImage: `url("${bg2}")` }}
-      />
-
-      <motion.div
-        animate={{ opacity: stage >= 2 ? 1 : 0 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-        className="absolute inset-0 bg-cover bg-center blur-[6px] brightness-75 scale-105 -z-30"
-        style={{ backgroundImage: `url("${bg3}")` }}
-      />
-
-      {/* ========================================================
-          HEADER (LOGO & LET'S TALK)
-      ======================================================== */}
-      <motion.header
-        initial={{ opacity: 0, y: -24 }}
-        animate={{
-          opacity: stage >= 3 ? 1 : 0,
-          y: stage >= 3 ? 0 : -24,
-        }}
-        transition={springConfig}
-        className="relative w-full max-w-[1440px] h-[64px] flex justify-between items-center z-40"
-      >
+      {/* 1. BACKGROUND CROSSFADE LAYERS */}
+      <div className="absolute inset-0 -z-30 pointer-events-none">
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="cursor-pointer flex items-center h-[64px]"
-        >
-          <img
-            src={jsLogo}
-            alt="JS Logo"
-            className="h-[78px] w-auto object-contain"
-          />
-        </motion.div>
+          initial={{ opacity: 1 }}
+          className="absolute inset-0 bg-cover bg-center blur-[6px] brightness-75 scale-105"
+          style={{ backgroundImage: `url("${bg1}")` }}
+        />
+        <motion.div
+          animate={{ opacity: stage >= 1 ? 1 : 0 }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+          className="absolute inset-0 bg-cover bg-center blur-[6px] brightness-75 scale-105"
+          style={{ backgroundImage: `url("${bg2}")` }}
+        />
+        <motion.div
+          animate={{ opacity: stage >= 2 ? 1 : 0 }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+          className="absolute inset-0 bg-cover bg-center blur-[6px] brightness-75 scale-105"
+          style={{ backgroundImage: `url("${bg3}")` }}
+        />
+      </div>
 
-        <motion.button
-          whileHover={{ scale: 1.04, backgroundColor: "#f3f4f6" }}
-          whileTap={{ scale: 0.96 }}
-          className="w-[138.45px] h-[47.9px] bg-white border-[1.1px] border-white shadow-[0px_0px_16px_rgba(0,0,0,0.16)] rounded-[29.69px] flex justify-center items-center gap-[12.85px] px-[22px]"
-        >
-          <span className="font-medium text-[15.4px] leading-[20px] text-black">
-            Let's Talk
-          </span>
-          <svg
-            width="8.4"
-            height="8.4"
-            viewBox="0 0 10 10"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1 9L9 1M9 1H1M9 1V9"
-              stroke="black"
-              strokeWidth="1.64"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.button>
-      </motion.header>
+      {/* 2. CENTER PORTRAIT */}
+      <motion.div
+        ref={portraitRef}
+        initial={{ opacity: 0, y: 40, x: "-50%" }}
+        animate={{
+          opacity: stage >= 5 ? 1 : 0,
+          y: stage >= 5 ? 0 : 40,
+          x: "-50%",
+        }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute bottom-0 left-1/2 w-[28vw] max-w-[450px] z-0 pointer-events-none will-change-transform"
+      >
+        <img
+          src={portrait}
+          alt="Janssen Sombrio"
+          className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
+        />
+      </motion.div>
 
-      {/* ========================================================
-              PORTRAIT
-          ======================================================== */}
-          <motion.div
-            ref={portraitRef}
-            initial={{ opacity: 0, y: 40, x: "-50%" }}
-            animate={{
-              opacity: stage >= 5 ? 1 : 0,
-              y: stage >= 5 ? 0 : 40,
-              x: "-50%",
-            }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute bottom-0 left-1/2 w-[28vw] max-w-[450px] z-0 pointer-events-none will-change-transform"
-          >
-            <img
-              src={portrait}
-              alt="Janssen Sombrio"
-              className="w-full h-auto object-contain object-bottom drop-shadow-2xl"
-            />
-          </motion.div>
+      {/* 3. ATMOSPHERIC BOTTOM GRADIENT */}
+      <div className="absolute bottom-0 left-0 w-full h-[260px] bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
 
-      {/* BOTTOM GRADIENT */}
-      <div className="absolute bottom-0 left-0 w-full h-[242px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.88)] z-10 pointer-events-none" />
-
-      {/* ========================================================
-          GIANT NAME
-      ======================================================== */}
+      {/* 4. LARGE TYPOGRAPHY BACKGROUND (NAME TEXT) */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{
@@ -195,12 +142,12 @@ export default function Hero() {
           y: stage >= 4 ? 0 : 40,
         }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-[6%] w-full flex flex-col items-center z-20 pointer-events-none"
+        className="absolute bottom-[6%] inset-x-0 flex flex-col items-center z-20 pointer-events-none"
       >
         <img
           src={nameText}
           alt="Janssen Sombrio"
-          className="w-[110vw] object-contain"
+          className="w-[90vw] max-w-[1800px] object-contain"
         />
         <motion.p
           initial={{ opacity: 0, letterSpacing: "0.1em" }}
@@ -215,9 +162,7 @@ export default function Hero() {
         </motion.p>
       </motion.div>
 
-      {/* ========================================================
-          FOREGROUND CONTENT
-      ======================================================== */}
+      {/* 5. FOREGROUND CONTENT GRID */}
       <motion.div
         initial={{ opacity: 0, y: 32 }}
         animate={{
@@ -225,9 +170,9 @@ export default function Hero() {
           y: stage >= 6 ? 0 : 32,
         }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-30 w-full max-w-[1440px] flex justify-between items-center mt-[8vh]"
+        className="relative z-30 w-full max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mt-4"
       >
-        {/* LEFT SIDE */}
+        {/* Left Column */}
         <div className="max-w-md text-white">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
@@ -251,14 +196,14 @@ export default function Hero() {
           <motion.button
             whileHover={{ scale: 1.04, backgroundColor: "#e5e7eb" }}
             whileTap={{ scale: 0.96 }}
-            className="bg-white text-black px-6 py-2.5 rounded-full font-medium text-sm flex items-center gap-2 shadow-lg"
+            className="bg-white text-black px-6 py-2.5 rounded-full font-medium text-sm flex items-center gap-2 shadow-lg cursor-pointer"
           >
             Case Studies ↗
           </motion.button>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="max-w-md text-right text-white flex flex-col items-end">
+        {/* Right Column */}
+        <div className="max-w-md text-left md:text-right text-white flex flex-col items-start md:items-end">
           <motion.p
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: stage >= 6 ? 1 : 0, x: stage >= 6 ? 0 : 20 }}
@@ -266,17 +211,15 @@ export default function Hero() {
             className="text-gray-200 text-sm md:text-base mb-6 leading-relaxed drop-shadow-sm"
           >
             Hi, I'm Janssen! — a UI/UX Designer and Front-End Developer focused on
-            creating clean, intuitive web experiences. Transforming complex ideas
-            into simple, accessible interfaces backed by responsive,
-            production-ready code.
+            creating clean, intuitive web experiences.
           </motion.p>
 
-          {/* CHIP LINKS */}
-          <div className="flex flex-wrap justify-end gap-3">
-            {["Figma", "Github", "Download CV ↓"].map((link, idx) => (
+          {/* Social / External Action Chips */}
+          <div className="flex flex-wrap justify-start md:justify-end gap-3">
+            {chipLinks.map((chip, idx) => (
               <motion.a
-                key={link}
-                href="#"
+                key={chip.label}
+                href={chip.href}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{
                   opacity: stage >= 6 ? 1 : 0,
@@ -289,9 +232,9 @@ export default function Hero() {
                   color: "#000000",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="border border-white/50 rounded-full px-5 py-2 text-xs md:text-sm backdrop-blur-sm transition-colors"
+                className="border border-white/50 rounded-full px-5 py-2 text-xs md:text-sm backdrop-blur-sm transition-colors text-white"
               >
-                {link}
+                {chip.label}
               </motion.a>
             ))}
           </div>
